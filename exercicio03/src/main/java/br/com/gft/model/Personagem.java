@@ -1,7 +1,5 @@
 package br.com.gft.model;
 
-import br.com.gft.util.NumeroRandom;
-
 public abstract class Personagem {
     private String nome;
     private int vida;
@@ -12,7 +10,6 @@ public abstract class Personagem {
     private float xp;
 
     private static int quantidadePersonagensCriados = 0;
-    protected NumeroRandom random = new NumeroRandom();
 
     public Personagem() {
         Personagem.quantidadePersonagensCriados++;
@@ -82,10 +79,6 @@ public abstract class Personagem {
 
     public void setXp(float xp) {
         this.xp = xp;
-    }
-
-    public void setNumeroRandomico(NumeroRandom random) {
-        this.random = random;
     }
 
     @Override

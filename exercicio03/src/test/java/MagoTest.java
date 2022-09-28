@@ -2,9 +2,7 @@ import br.com.gft.model.Mago;
 import br.com.gft.model.Personagem;
 import br.com.gft.util.NumeroRandom;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,15 +30,10 @@ public class MagoTest {
         nr.close();
     }
 
-    @Mock
-    private NumeroRandom random;
-
     @BeforeEach
     public void setup(){
         mago = new Mago();
         mago.setNome("Gandalf");
-        random = Mockito.mock(NumeroRandom.class);
-        mago.setNumeroRandomico(random);
         System.setOut(new PrintStream(outContent));
     }
 

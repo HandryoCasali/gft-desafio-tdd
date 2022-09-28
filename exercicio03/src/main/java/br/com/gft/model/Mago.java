@@ -1,6 +1,5 @@
 package br.com.gft.model;
 
-
 import br.com.gft.util.NumeroRandom;
 
 import java.util.ArrayList;

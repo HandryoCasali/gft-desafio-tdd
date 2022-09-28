@@ -2,9 +2,7 @@ import br.com.gft.model.Guerreiro;
 import br.com.gft.model.Personagem;
 import br.com.gft.util.NumeroRandom;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -31,14 +29,10 @@ public class GuerreiroTest {
         nr.close();
     }
 
-    @Mock
-    private NumeroRandom random;
-
     @BeforeEach
     public void setup(){
         guerreiro = new Guerreiro();
         guerreiro.setNome("Kirito");
-        random = Mockito.mock(NumeroRandom.class);
         System.setOut(new PrintStream(outContent));
     }
 
@@ -49,7 +43,6 @@ public class GuerreiroTest {
 
     @Test
     public void deveAtacar(){
-        guerreiro.setNumeroRandomico(random);
         nr.when(()-> NumeroRandom.numeroRandom(301)).thenReturn(10);
         guerreiro.lvlUp();
         int valorEsperadoAttack = guerreiro.getForca() * guerreiro.getLevel() + 10;
