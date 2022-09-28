@@ -1,11 +1,13 @@
 package br.com.gft.model;
 
+import br.com.gft.util.NumeroRandom;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Guerreiro extends Personagem{
-    private List<String> habilidade = new ArrayList<>();
+    private final List<String> habilidade = new ArrayList<>();
 
     @Override
     public void lvlUp() {
@@ -17,7 +19,7 @@ public class Guerreiro extends Personagem{
     }
 
     public int attack() {
-        return super.getForca() * getLevel() + super.random.numeroRandom(301);
+        return super.getForca() * getLevel() + NumeroRandom.numeroRandom(301);
     }
 
     public void aprenderHabilidade(String habilidade){

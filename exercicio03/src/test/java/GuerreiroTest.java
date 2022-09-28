@@ -1,10 +1,9 @@
 import br.com.gft.model.Guerreiro;
 import br.com.gft.model.Personagem;
-import br.com.gft.util.NumeroRandomico;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import br.com.gft.util.NumeroRandom;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
@@ -13,32 +12,45 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mockStatic;
 
 public class GuerreiroTest {
     private Guerreiro guerreiro;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
+    private static MockedStatic<NumeroRandom> nr;
+
+    @BeforeAll
+    static void setUp() {
+        nr = mockStatic(NumeroRandom.class);
+    }
+
+    @AfterAll
+    static void tearDown() {
+        nr.close();
+    }
+
     @Mock
-    private NumeroRandomico random;
+    private NumeroRandom random;
 
     @BeforeEach
     public void setup(){
         guerreiro = new Guerreiro();
         guerreiro.setNome("Kirito");
-        random = Mockito.mock(NumeroRandomico.class);
+        random = Mockito.mock(NumeroRandom.class);
         System.setOut(new PrintStream(outContent));
     }
 
     @AfterEach
-    public void tearDown() throws IOException {
+    public void close() throws IOException {
         outContent.close();
     }
 
     @Test
     public void deveAtacar(){
         guerreiro.setNumeroRandomico(random);
-        Mockito.when(random.numeroRandom(301)).thenReturn(10);
+        nr.when(()-> NumeroRandom.numeroRandom(301)).thenReturn(10);
         guerreiro.lvlUp();
         int valorEsperadoAttack = guerreiro.getForca() * guerreiro.getLevel() + 10;
         assertEquals(valorEsperadoAttack, guerreiro.attack());
